@@ -143,14 +143,13 @@
   </style>
 </head>
 <body>
-  <div class="watermark">67RIDE</div>
   <div class="cross"></div>
   <div class="scanline"></div>
 
   <img class="logo" src="logo.png" alt="67ride logo" />
 
   <div class="coming">Coming soon</div>
-  <button class="sound-button" id="soundButton">ENTER / SOUND ON</button>
+  <button class="sound-button" id="soundButton">PLAY BANGER</button>
 
   <audio id="bgAudio" src="ambient.mp3" loop preload="auto"></audio>
 
@@ -163,11 +162,13 @@
     button.addEventListener("click", async () => {
       try {
         await audio.play();
-        button.textContent = "SOUND ON";
+        button.textContent = "BANGER ON";
       } catch (error) {
         button.textContent = "CLICK AGAIN";
       }
     });
   </script>
 </body>
+</html>
+
 </html>
