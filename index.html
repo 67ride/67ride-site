@@ -3,11 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>67ride</title>
-  <style>
-    * { box-sizing: border-box; }
 
-    html, body {
+  <title>67ride</title>
+
+  <meta
+    name="description"
+    content="67ride — automotive social app. Car culture. One signal."
+  />
+
+  <link rel="canonical" href="https://67ride.com/" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "67ride",
+    "url": "https://67ride.com/",
+    "logo": "https://67ride.com/logo.png",
+    "sameAs": [
+      "https://www.instagram.com/67rideapp/"
+    ]
+  }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
       margin: 0;
       width: 100%;
       height: 100%;
@@ -22,8 +47,17 @@
       position: fixed;
       inset: -20%;
       background:
-        radial-gradient(circle at center, rgba(0, 255, 230, 0.12), transparent 32%),
-        linear-gradient(135deg, transparent 0 48%, rgba(0, 255, 230, 0.06) 49%, transparent 51% 100%);
+        radial-gradient(
+          circle at center,
+          rgba(0, 255, 230, 0.12),
+          transparent 32%
+        ),
+        linear-gradient(
+          135deg,
+          transparent 0 48%,
+          rgba(0, 255, 230, 0.06) 49%,
+          transparent 51% 100%
+        );
       animation: bgPulse 7s ease-in-out infinite alternate;
       pointer-events: none;
     }
@@ -47,7 +81,10 @@
     .scanline {
       position: fixed;
       inset: 0;
-      background: linear-gradient(rgba(255,255,255,0.026) 1px, transparent 1px);
+      background: linear-gradient(
+        rgba(255, 255, 255, 0.026) 1px,
+        transparent 1px
+      );
       background-size: 100% 4px;
       opacity: 0.35;
       pointer-events: none;
@@ -68,12 +105,22 @@
       left: -20%;
       width: 140%;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0,255,230,0.16), transparent);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 255, 230, 0.16),
+        transparent
+      );
       transform-origin: center;
     }
 
-    .cross::before { transform: rotate(35deg); }
-    .cross::after { transform: rotate(-35deg); }
+    .cross::before {
+      transform: rotate(35deg);
+    }
+
+    .cross::after {
+      transform: rotate(-35deg);
+    }
 
     .logo {
       position: fixed;
@@ -88,12 +135,36 @@
       pointer-events: none;
     }
 
+    .instagram-link {
+      position: fixed;
+      left: 50%;
+      bottom: 132px;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      text-decoration: none;
+      z-index: 10;
+      transition: 0.2s ease;
+    }
+
+    .instagram-link span {
+      color: #00ffe6;
+      font-weight: 700;
+    }
+
+    .instagram-link:hover {
+      color: #ffffff;
+      text-shadow: 0 0 12px rgba(0, 255, 230, 0.55);
+    }
+
     .coming {
       position: fixed;
       left: 50%;
       bottom: 98px;
       transform: translateX(-50%);
-      color: rgba(255,255,255,0.58);
+      color: rgba(255, 255, 255, 0.58);
       font-size: 13px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -123,35 +194,99 @@
     }
 
     @keyframes crossMove {
-      0%   { transform: translate(-72%, -68%) scale(0.95) rotate(-1deg); }
-      33%  { transform: translate(-30%, -32%) scale(1.05) rotate(1deg); }
-      66%  { transform: translate(-67%, -32%) scale(1.0) rotate(-0.5deg); }
-      100% { transform: translate(-28%, -68%) scale(1.04) rotate(0.5deg); }
+      0% {
+        transform: translate(-72%, -68%) scale(0.95) rotate(-1deg);
+      }
+
+      33% {
+        transform: translate(-30%, -32%) scale(1.05) rotate(1deg);
+      }
+
+      66% {
+        transform: translate(-67%, -32%) scale(1) rotate(-0.5deg);
+      }
+
+      100% {
+        transform: translate(-28%, -68%) scale(1.04) rotate(0.5deg);
+      }
     }
 
     @keyframes bgPulse {
-      from { opacity: 0.65; transform: scale(1); }
-      to   { opacity: 1; transform: scale(1.06); }
+      from {
+        opacity: 0.65;
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1.06);
+      }
     }
 
     @media (max-width: 700px) {
-      .logo { width: 72vw; }
-      .watermark { font-size: 23vw; }
-      .coming { bottom: 92px; font-size: 11px; }
-      .sound-button { bottom: 34px; font-size: 12px; padding: 12px 18px; }
+      .logo {
+        width: 72vw;
+      }
+
+      .watermark {
+        font-size: 23vw;
+      }
+
+      .instagram-link {
+        bottom: 122px;
+        font-size: 11px;
+      }
+
+      .coming {
+        bottom: 88px;
+        font-size: 11px;
+      }
+
+      .sound-button {
+        bottom: 32px;
+        font-size: 12px;
+        padding: 12px 18px;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="cross"></div>
   <div class="scanline"></div>
 
-  <img class="logo" src="logo.png" alt="67ride logo" />
+  <img
+    class="logo"
+    src="logo.png"
+    alt="67ride automotive social app logo"
+  />
+
+  <a
+    class="instagram-link"
+    href="https://www.instagram.com/67rideapp/"
+    target="_blank"
+    rel="me noopener noreferrer"
+    aria-label="Official Instagram profile of 67ride"
+  >
+    Official Instagram: <span>@67rideapp</span>
+  </a>
 
   <div class="coming">Coming soon</div>
-  <button class="sound-button" id="soundButton">PLAY BANGER</button>
 
-  <audio id="bgAudio" src="ambient.mp3" loop preload="auto"></audio>
+  <button
+    class="sound-button"
+    id="soundButton"
+    type="button"
+  >
+    PLAY BANGER
+  </button>
+
+  <audio
+    id="bgAudio"
+    src="ambient.mp3"
+    loop
+    preload="auto"
+  ></audio>
 
   <script>
     const audio = document.getElementById("bgAudio");
@@ -161,14 +296,17 @@
 
     button.addEventListener("click", async () => {
       try {
-        await audio.play();
-        button.textContent = "BANGER ON";
+        if (audio.paused) {
+          await audio.play();
+          button.textContent = "BANGER ON";
+        } else {
+          audio.pause();
+          button.textContent = "PLAY BANGER";
+        }
       } catch (error) {
         button.textContent = "CLICK AGAIN";
       }
     });
   </script>
 </body>
-</html>
-
 </html>
