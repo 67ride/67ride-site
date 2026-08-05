@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#020505" />
+  <meta name="robots" content="index,follow" />
+  <meta name="description" content="How to permanently delete a 67ride account and associated data." />
+  <title>Delete your 67ride account</title>
+
+  <style>
+    :root {
+      --bg: #020505;
+      --surface: rgba(8, 17, 18, 0.88);
+      --surface-strong: #071011;
+      --text: #f3fbfb;
+      --muted: #9bb0b2;
+      --line: rgba(0, 255, 255, 0.20);
+      --line-soft: rgba(255, 255, 255, 0.08);
+      --cyan: #00f4f4;
+      --cyan-soft: rgba(0, 244, 244, 0.12);
+      --danger: #ff5f6d;
+      --danger-soft: rgba(255, 95, 109, 0.10);
+      --max: 920px;
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(0, 244, 244, 0.08), transparent 34rem),
+        radial-gradient(circle at 100% 28%, rgba(0, 244, 244, 0.04), transparent 26rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.62;
+    }
+
+    a {
+      color: var(--cyan);
+      text-underline-offset: 3px;
+    }
+
+    .shell {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      padding: 26px 0 64px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 54px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      font-size: 22px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: var(--cyan);
+      background: linear-gradient(145deg, rgba(0, 244, 244, 0.16), rgba(0, 244, 244, 0.04));
+      border: 1px solid rgba(0, 244, 244, 0.38);
+      box-shadow: 0 0 30px rgba(0, 244, 244, 0.08);
+      font-size: 16px;
+    }
+
+    .lang-switch {
+      display: flex;
+      padding: 4px;
+      border: 1px solid var(--line-soft);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .lang-switch button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 8px 13px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .lang-switch button[aria-pressed="true"] {
+      color: #001011;
+      background: var(--cyan);
+    }
+
+    .hero {
+      margin-bottom: 26px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(40px, 7vw, 74px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 24px 0 0;
+      color: #c4d2d3;
+      font-size: clamp(17px, 2.2vw, 20px);
+    }
+
+    .notice {
+      display: flex;
+      gap: 14px;
+      padding: 18px 20px;
+      margin: 30px 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--cyan-soft);
+    }
+
+    .notice-icon {
+      flex: 0 0 auto;
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0, 244, 244, 0.38);
+      border-radius: 10px;
+      color: var(--cyan);
+      font-weight: 900;
+    }
+
+    .notice p {
+      margin: 0;
+      color: #d9e7e8;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .card {
+      padding: 26px;
+      border: 1px solid var(--line-soft);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.024), transparent),
+        var(--surface);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+    }
+
+    .card.full {
+      grid-column: 1 / -1;
+    }
+
+    .card.danger {
+      border-color: rgba(255, 95, 109, 0.28);
+      background:
+        linear-gradient(180deg, var(--danger-soft), transparent 55%),
+        var(--surface);
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 24px;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+    }
+
+    h3 {
+      margin: 24px 0 8px;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    p {
+      color: var(--muted);
+    }
+
+    .card p:first-of-type {
+      margin-top: 0;
+    }
+
+    ol, ul {
+      margin: 14px 0 0;
+      padding-left: 22px;
+      color: #c4d2d3;
+    }
+
+    li + li {
+      margin-top: 8px;
+    }
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: start;
+      gap: 12px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: var(--cyan);
+      border: 1px solid rgba(0, 244, 244, 0.32);
+      background: rgba(0, 244, 244, 0.07);
+      font-weight: 900;
+    }
+
+    .path {
+      display: block;
+      margin-top: 9px;
+      padding: 12px 14px;
+      overflow-wrap: anywhere;
+      color: #dffdfd;
+      border: 1px solid rgba(0, 244, 244, 0.18);
+      border-radius: 14px;
+      background: rgba(0, 244, 244, 0.055);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border-radius: 15px;
+      color: #001011;
+      background: var(--cyan);
+      text-decoration: none;
+      font-weight: 900;
+      box-shadow: 0 0 28px rgba(0, 244, 244, 0.10);
+    }
+
+    .button.secondary {
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .data-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .data-list li {
+      margin: 0;
+      padding: 13px 14px;
+      color: #c7d6d7;
+      border: 1px solid var(--line-soft);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.018);
+    }
+
+    .small {
+      font-size: 13px;
+      color: #81989a;
+    }
+
+    footer {
+      margin-top: 34px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line-soft);
+      color: #718789;
+      font-size: 13px;
+    }
+
+    [data-lang] {
+      display: none;
+    }
+
+    html[data-current-lang="en"] [data-lang="en"],
+    html[data-current-lang="cs"] [data-lang="cs"] {
+      display: revert;
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(calc(100% - 24px), var(--max));
+        padding-top: 16px;
+      }
+
+      .topbar {
+        margin-bottom: 38px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card.full {
+        grid-column: auto;
+      }
+
+      .data-list {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 21px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="67ride home">
+        <span class="brand-mark">67</span>
+        <span>67ride</span>
+      </a>
+
+      <div class="lang-switch" aria-label="Language">
+        <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-set-lang="cs" aria-pressed="false">CZ</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="eyebrow" data-lang="en">Account & data</p>
+      <p class="eyebrow" data-lang="cs">Účet a data</p>
+
+      <h1 data-lang="en">Delete your 67ride account.</h1>
+      <h1 data-lang="cs">Smazání účtu 67ride.</h1>
+
+      <p class="lead" data-lang="en">
+        You can permanently delete your account directly in the app. If you no longer have access to the app,
+        you can send a deletion request by email.
+      </p>
+      <p class="lead" data-lang="cs">
+        Účet můžete trvale smazat přímo v aplikaci. Pokud už k aplikaci nemáte přístup,
+        můžete požádat o smazání e-mailem.
+      </p>
+    </section>
+
+    <section class="notice">
+      <div class="notice-icon" aria-hidden="true">!</div>
+      <p data-lang="en">
+        Account deletion is permanent. After the request is completed, the account cannot be restored.
+      </p>
+      <p data-lang="cs">
+        Smazání účtu je trvalé. Po dokončení žádosti už účet nelze obnovit.
+      </p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2 data-lang="en">Delete the account in the app</h2>
+        <h2 data-lang="cs">Smazání účtu v aplikaci</h2>
+
+        <ol class="steps" data-lang="en">
+          <li>Open <strong>67</strong> in the bottom navigation.</li>
+          <li>Open <strong>Settings</strong> using the gear icon.</li>
+          <li>Go to <strong>Account → Account &amp; Security</strong>.</li>
+          <li>Open <strong>Danger Zone → Permanently Delete Account</strong>.</li>
+          <li>Follow the confirmation steps shown in the app.</li>
+        </ol>
+
+        <ol class="steps" data-lang="cs">
+          <li>Ve spodní navigaci otevřete <strong>67</strong>.</li>
+          <li>Pomocí ozubeného kola otevřete <strong>Nastavení</strong>.</li>
+          <li>Přejděte do <strong>Účet → Účet a zabezpečení</strong>.</li>
+          <li>Otevřete <strong>Nebezpečná zóna → Trvale smazat účet</strong>.</li>
+          <li>Dokončete potvrzení zobrazené v aplikaci.</li>
+        </ol>
+
+        <span class="path" data-lang="en">67 → Settings → Account → Account &amp; Security → Danger Zone → Permanently Delete Account</span>
+        <span class="path" data-lang="cs">67 → Nastavení → Účet → Účet a zabezpečení → Nebezpečná zóna → Trvale smazat účet</span>
+      </article>
+
+      <article class="card danger">
+        <h2 data-lang="en">Request deletion without the app</h2>
+        <h2 data-lang="cs">Žádost bez přístupu k aplikaci</h2>
+
+        <p data-lang="en">
+          Send an email from the address registered with your 67ride account. This helps us verify that the request
+          was submitted by the account owner.
+        </p>
+        <p data-lang="cs">
+          E-mail odešlete z adresy registrované u účtu 67ride. Pomůže nám to ověřit,
+          že žádost odeslal vlastník účtu.
+        </p>
+
+        <p>
+          <strong data-lang="en">Email:</strong>
+          <strong data-lang="cs">E-mail:</strong>
+          <a href="mailto:support@67ride.com?subject=Delete%20my%2067ride%20account">support@67ride.com</a><br />
+          <strong data-lang="en">Subject:</strong>
+          <strong data-lang="cs">Předmět:</strong>
+          <span>Delete my 67ride account</span>
+        </p>
+
+        <div class="button-row">
+          <a
+            class="button"
+            href="mailto:support@67ride.com?subject=Delete%20my%2067ride%20account&body=Hello%2C%0A%0APlease%20delete%20the%2067ride%20account%20registered%20to%20this%20email%20address.%0A%0A67ride%20login%20or%20profile%20name%20(optional)%3A%20%0A%0AThank%20you."
+          >
+            <span data-lang="en">Create deletion email</span>
+            <span data-lang="cs">Vytvořit e-mail se žádostí</span>
+          </a>
+
+          <a class="button secondary" href="mailto:support@67ride.com">
+            support@67ride.com
+          </a>
+        </div>
+      </article>
+
+      <article class="card full">
+        <h2 data-lang="en">Data affected by account deletion</h2>
+        <h2 data-lang="cs">Data dotčená smazáním účtu</h2>
+
+        <p data-lang="en">
+          After successful verification, we delete or anonymize personal data associated with the account,
+          including the categories below.
+        </p>
+        <p data-lang="cs">
+          Po úspěšném ověření smažeme nebo anonymizujeme osobní data spojená s účtem,
+          včetně níže uvedených kategorií.
+        </p>
+
+        <ul class="data-list" data-lang="en">
+          <li>Account and authentication records</li>
+          <li>Profile details, biography and vehicle information</li>
+          <li>Profile and showcase photos</li>
+          <li>Posts, comments, reactions and social relationships</li>
+          <li>Private messages and chat-related account data</li>
+          <li>Club memberships and activity linked to the account</li>
+          <li>Location and ride activity linked to the account</li>
+          <li>Other personal settings and identifiers</li>
+        </ul>
+
+        <ul class="data-list" data-lang="cs">
+          <li>Účet a autentizační záznamy</li>
+          <li>Profil, bio a informace o vozidle</li>
+          <li>Profilové a prezentační fotografie</li>
+          <li>Příspěvky, komentáře, reakce a sociální vazby</li>
+          <li>Soukromé zprávy a data chatu spojená s účtem</li>
+          <li>Členství v klubech a související aktivita</li>
+          <li>Poloha a jízdní aktivita spojená s účtem</li>
+          <li>Další osobní nastavení a identifikátory</li>
+        </ul>
+
+        <h3 data-lang="en">Limited retention</h3>
+        <h3 data-lang="cs">Omezené uchování</h3>
+
+        <p data-lang="en">
+          We may retain a limited amount of information where necessary to meet legal obligations,
+          prevent fraud or abuse, protect users, resolve disputes, or maintain security and moderation records.
+          Residual copies may also remain temporarily in protected backups until the normal backup cycle completes.
+        </p>
+        <p data-lang="cs">
+          Omezené množství informací můžeme uchovat, pokud je to nutné kvůli právním povinnostem,
+          prevenci podvodů nebo zneužití, ochraně uživatelů, řešení sporů nebo bezpečnostním a moderačním záznamům.
+          Zbytkové kopie mohou dočasně zůstat v chráněných zálohách do dokončení běžného zálohovacího cyklu.
+        </p>
+      </article>
+
+      <article class="card full">
+        <h2 data-lang="en">Operator and contact</h2>
+        <h2 data-lang="cs">Provozovatel a kontakt</h2>
+
+        <p>
+          <strong>WGTLabs s.r.o.</strong><br />
+          <span data-lang="en">Operator of the 67ride application</span>
+          <span data-lang="cs">Provozovatel aplikace 67ride</span><br />
+          <a href="mailto:support@67ride.com">support@67ride.com</a>
+        </p>
+
+        <p class="small" data-lang="en">
+          For more information about the processing of personal data, see the
+          <a href="/privacy/">67ride Privacy Policy</a>.
+        </p>
+        <p class="small" data-lang="cs">
+          Další informace o zpracování osobních údajů najdete v
+          <a href="/privacy/">Zásadách ochrany soukromí 67ride</a>.
+        </p>
+      </article>
+    </section>
+
+    <footer>
+      <span data-lang="en">Last updated: August 6, 2026 · 67ride / WGTLabs s.r.o.</span>
+      <span data-lang="cs">Poslední aktualizace: 6. srpna 2026 · 67ride / WGTLabs s.r.o.</span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const buttons = Array.from(document.querySelectorAll("[data-set-lang]"));
+      const saved = localStorage.getItem("67ride-legal-lang");
+      const browser = (navigator.language || "").toLowerCase();
+      const initial = saved || (browser.startsWith("cs") ? "cs" : "en");
+
+      function setLanguage(lang) {
+        root.dataset.currentLang = lang;
+        root.lang = lang === "cs" ? "cs" : "en";
+        localStorage.setItem("67ride-legal-lang", lang);
+
+        buttons.forEach((button) => {
+          button.setAttribute(
+            "aria-pressed",
+            button.dataset.setLang === lang ? "true" : "false"
+          );
+        });
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.setLang));
+      });
+
+      setLanguage(initial);
+    })();
+  </script>
+</body>
+</html>
