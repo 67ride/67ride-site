@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#020606">
+  <meta name="robots" content="noindex,follow">
+  <title>Get 67ride</title>
+  <meta name="description" content="Choose your phone to get 67ride.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --accent: #01dee0;
+      --bg: #020606;
+      --panel: rgba(8, 19, 19, 0.88);
+      --muted: rgba(255, 255, 255, 0.58);
+      --line: rgba(255, 255, 255, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      min-height: 100%;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      color: #fff;
+      background:
+        radial-gradient(circle at 50% 12%, rgba(1, 222, 224, 0.14), transparent 35%),
+        linear-gradient(145deg, #020606 0%, #061010 52%, #020606 100%);
+      font-family: Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 100% 5px;
+      opacity: 0.35;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      min-height: 100vh;
+      min-height: 100svh;
+      align-items: center;
+      justify-content: center;
+      padding:
+        max(32px, env(safe-area-inset-top))
+        max(20px, env(safe-area-inset-right))
+        max(32px, env(safe-area-inset-bottom))
+        max(20px, env(safe-area-inset-left));
+    }
+
+    .shell {
+      width: min(100%, 760px);
+      text-align: center;
+    }
+
+    .logo {
+      display: block;
+      width: min(64vw, 280px);
+      height: auto;
+      margin: 0 auto 28px;
+      filter: drop-shadow(0 0 28px rgba(1, 222, 224, 0.26));
+    }
+
+    .signal {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--accent);
+      font-size: clamp(36px, 10vw, 66px);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+    }
+
+    .prompt {
+      margin: 18px 0 30px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 17px;
+    }
+
+    .stores {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+    }
+
+    .store-card {
+      appearance: none;
+      width: 100%;
+      min-height: 132px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      color: #fff;
+      background: var(--panel);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+      cursor: default;
+      font: inherit;
+      text-align: left;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    .store-card.is-preferred {
+      border-color: rgba(1, 222, 224, 0.72);
+      box-shadow: 0 0 0 1px rgba(1, 222, 224, 0.12), 0 20px 60px rgba(1, 222, 224, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .device {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .store-name {
+      display: block;
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 16px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+    }
+
+    .store-card.is-live {
+      cursor: pointer;
+    }
+
+    .store-card.is-live:hover,
+    .store-card.is-live:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    @media (min-width: 620px) {
+      .stores { grid-template-columns: repeat(2, 1fr); }
+      .store-card { min-height: 158px; padding: 28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .store-card { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="shell" aria-labelledby="page-title">
+      <img class="logo" src="/logo.png" alt="67ride">
+      <p class="signal">Car culture. One signal.</p>
+      <h1 id="page-title">GET 67RIDE</h1>
+      <p class="prompt">Choose your phone.</p>
+
+      <div class="stores" aria-label="Download options">
+        <button class="store-card" id="iosStore" type="button" disabled>
+          <span class="device">iPhone</span>
+          <span class="store-name">App Store</span>
+          <span class="status">COMING SOON</span>
+        </button>
+
+        <button class="store-card" id="androidStore" type="button" disabled>
+          <span class="device">Android</span>
+          <span class="store-name">Google Play</span>
+          <span class="status">COMING SOON</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORE_CONFIG = {
+      ios: {
+        live: false,
+        url: ""
+      },
+      android: {
+        live: false,
+        url: "https://play.google.com/store/apps/details?id=com.wgtlabs.ride67"
+      }
+    };
+
+    const ALLOWED_SOURCES = new Set([
+      "h1", "h2", "h3", "h4", "h5", "h6", "d1", "c1", "x1", "x2", "direct"
+    ]);
+    const requestedSource = new URLSearchParams(window.location.search).get("src");
+    const source = ALLOWED_SOURCES.has(requestedSource) ? requestedSource : "direct";
+
+    try {
+      sessionStorage.setItem("67ride_qr_source", source);
+    } catch (error) {
+      // The landing page remains functional when storage is unavailable.
+    }
+
+    const userAgent = navigator.userAgent || "";
+    const platform = navigator.platform || "";
+    const touchPoints = navigator.maxTouchPoints || 0;
+    const isAndroid = /Android/i.test(userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(userAgent) || (platform === "MacIntel" && touchPoints > 1);
+
+    if (isIOS) {
+      document.getElementById("iosStore").classList.add("is-preferred");
+    } else if (isAndroid) {
+      document.getElementById("androidStore").classList.add("is-preferred");
+    }
+
+    function configureStore(elementId, config) {
+      const card = document.getElementById(elementId);
+
+      if (!config.live || !config.url) {
+        card.disabled = true;
+        return;
+      }
+
+      card.disabled = false;
+      card.classList.add("is-live");
+      card.querySelector(".status").textContent = "OPEN STORE";
+      card.addEventListener("click", () => {
+        window.location.assign(config.url);
+      });
+    }
+
+    configureStore("iosStore", STORE_CONFIG.ios);
+    configureStore("androidStore", STORE_CONFIG.android);
+  </script>
+</body>
+</html>
