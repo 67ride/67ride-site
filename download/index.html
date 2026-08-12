@@ -197,6 +197,12 @@
   </main>
 
   <script>
+    const QR_ANALYTICS_ENDPOINT =
+      "https://muolhljdicxhfhhixnnx.supabase.co/functions/v1/record-qr-event";
+    const VISITOR_STORAGE_KEY = "67ride_visitor_id";
+    const UUID_PATTERN =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
     const STORE_CONFIG = {
       ios: {
         live: false,
@@ -214,6 +220,36 @@
     const requestedSource = new URLSearchParams(window.location.search).get("src");
     const source = ALLOWED_SOURCES.has(requestedSource) ? requestedSource : "direct";
 
+    function getVisitorId() {
+      try {
+        const storedVisitorId = localStorage.getItem(VISITOR_STORAGE_KEY);
+
+        if (storedVisitorId && UUID_PATTERN.test(storedVisitorId)) {
+          return storedVisitorId;
+        }
+
+        const newVisitorId = crypto.randomUUID();
+        localStorage.setItem(VISITOR_STORAGE_KEY, newVisitorId);
+        return newVisitorId;
+      } catch (error) {
+        // Keep one temporary ID for this tab when persistent storage is blocked.
+        try {
+          const sessionKey = `${VISITOR_STORAGE_KEY}_session`;
+          const sessionVisitorId = sessionStorage.getItem(sessionKey);
+
+          if (sessionVisitorId && UUID_PATTERN.test(sessionVisitorId)) {
+            return sessionVisitorId;
+          }
+
+          const temporaryVisitorId = crypto.randomUUID();
+          sessionStorage.setItem(sessionKey, temporaryVisitorId);
+          return temporaryVisitorId;
+        } catch (sessionError) {
+          return crypto.randomUUID();
+        }
+      }
+    }
+
     try {
       sessionStorage.setItem("67ride_qr_source", source);
     } catch (error) {
@@ -225,6 +261,40 @@
     const touchPoints = navigator.maxTouchPoints || 0;
     const isAndroid = /Android/i.test(userAgent);
     const isIOS = /iPhone|iPad|iPod/i.test(userAgent) || (platform === "MacIntel" && touchPoints > 1);
+    const analyticsPlatform = isIOS ? "ios" : (isAndroid ? "android" : "other");
+    const visitorId = getVisitorId();
+
+    function sendQrEvent(eventType, eventId = crypto.randomUUID()) {
+      if (source === "direct") {
+        return Promise.resolve();
+      }
+
+      return fetch(QR_ANALYTICS_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          eventId,
+          visitorId,
+          source,
+          eventType,
+          platform: analyticsPlatform
+        }),
+        keepalive: true
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+      }).catch((error) => {
+        console.warn(`[67ride analytics] ${eventType} event was not recorded.`, error);
+      });
+    }
+
+    if (source !== "direct") {
+      const scanEventId = crypto.randomUUID();
+      void sendQrEvent("scan", scanEventId);
+    }
 
     if (isIOS) {
       document.getElementById("iosStore").classList.add("is-preferred");
@@ -244,6 +314,7 @@
       card.classList.add("is-live");
       card.querySelector(".status").textContent = "OPEN STORE";
       card.addEventListener("click", () => {
+        void sendQrEvent("store_click");
         window.location.assign(config.url);
       });
     }
