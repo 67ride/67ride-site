@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#030606">
+  <title>67ride — United by car culture</title>
+  <meta name="description" content="67ride brings car people, events and rides together.">
+  <link rel="canonical" href="https://67ride.com/">
 
-  <title>67ride</title>
-
-  <meta
-    name="description"
-    content="67ride — automotive social app. Car culture. One signal."
-  />
-
-  <link rel="canonical" href="https://67ride.com/" />
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="67ride — United by car culture">
+  <meta property="og:description" content="Car people, events and rides in one app.">
+  <meta property="og:url" content="https://67ride.com/">
 
   <script type="application/ld+json">
   {
@@ -19,294 +19,852 @@
     "@type": "Organization",
     "name": "67ride",
     "url": "https://67ride.com/",
-    "logo": "https://67ride.com/logo.png",
-    "sameAs": [
-      "https://www.instagram.com/67rideapp/"
-    ]
+    "logo": "https://67ride.com/assets/67ride-logo.png",
+    "sameAs": ["https://www.instagram.com/67rideapp/"]
   }
   </script>
 
   <style>
+    :root {
+      color-scheme: dark;
+      --accent: #01dee0;
+      --background: #030606;
+      --text: #f5fafa;
+      --muted: #8e9c9c;
+      --line: #1b2929;
+    }
+
     * {
       box-sizing: border-box;
     }
 
-    html,
+    html {
+      min-width: 320px;
+      background: var(--background);
+      scroll-behavior: smooth;
+    }
+
     body {
+      min-height: 100vh;
+      min-height: 100svh;
       margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #020606;
-      color: #ffffff;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: -20%;
+      color: var(--text);
       background:
-        radial-gradient(
-          circle at center,
-          rgba(0, 255, 230, 0.12),
-          transparent 32%
-        ),
-        linear-gradient(
-          135deg,
-          transparent 0 48%,
-          rgba(0, 255, 230, 0.06) 49%,
-          transparent 51% 100%
-        );
-      animation: bgPulse 7s ease-in-out infinite alternate;
-      pointer-events: none;
+        radial-gradient(circle at 74% 44%, rgba(1, 222, 224, 0.08), transparent 28rem),
+        var(--background);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .watermark {
-      position: fixed;
-      inset: 0;
+    a {
+      color: inherit;
+    }
+
+    .page {
       display: flex;
+      min-height: 100vh;
+      min-height: 100svh;
+      flex-direction: column;
+      padding:
+        max(22px, env(safe-area-inset-top))
+        max(20px, env(safe-area-inset-right))
+        max(18px, env(safe-area-inset-bottom))
+        max(20px, env(safe-area-inset-left));
+    }
+
+    .topbar {
+      display: flex;
+      width: min(100%, 1080px);
+      justify-content: flex-end;
+      margin: 0 auto;
+    }
+
+    .language-toggle {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      font-size: min(20vw, 220px);
-      font-weight: 900;
-      letter-spacing: 0.05em;
-      color: rgba(0, 255, 230, 0.045);
-      user-select: none;
-      pointer-events: none;
-      transform: rotate(-12deg);
-      text-transform: uppercase;
+      gap: 9px;
+      padding: 6px 0;
+      border: 0;
+      background: transparent;
+      color: #596666;
+      cursor: pointer;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
     }
 
-    .scanline {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(
-        rgba(255, 255, 255, 0.026) 1px,
-        transparent 1px
-      );
-      background-size: 100% 4px;
-      opacity: 0.35;
-      pointer-events: none;
-      mix-blend-mode: screen;
+    .language-toggle:hover,
+    .language-toggle:focus-visible {
+      color: #aab6b6;
+      outline: none;
     }
 
-    .cross {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
+    .language-en,
+    .language-cz {
+      transition: color 160ms ease;
     }
 
-    .cross::before,
-    .cross::after {
-      content: "";
+    .language-toggle:not(.is-czech) .language-en,
+    .language-toggle.is-czech .language-cz {
+      color: #fff;
+    }
+
+    .language-switch {
+      position: relative;
+      width: 42px;
+      height: 22px;
+      border: 1px solid #314242;
+      border-radius: 999px;
+      background: #0b1111;
+    }
+
+    .language-knob {
       position: absolute;
-      top: 50%;
-      left: -20%;
-      width: 140%;
-      height: 1px;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(0, 255, 230, 0.16),
-        transparent
-      );
-      transform-origin: center;
+      top: 3px;
+      left: 3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 180ms ease;
     }
 
-    .cross::before {
-      transform: rotate(35deg);
+    .language-toggle.is-czech .language-knob {
+      transform: translateX(20px);
     }
 
-    .cross::after {
-      transform: rotate(-35deg);
+    .hero {
+      display: grid;
+      width: min(100%, 1080px);
+      flex: 1;
+      align-items: center;
+      gap: clamp(38px, 7vw, 96px);
+      margin: 0 auto;
+      padding: 34px 0;
+    }
+
+    .intro {
+      max-width: 580px;
     }
 
     .logo {
-      position: fixed;
-      width: min(42vw, 430px);
-      max-width: 82vw;
+      display: block;
+      width: min(100%, 330px);
+      height: auto;
+      margin: 0 0 20px;
+    }
+
+    h1 {
+      max-width: 520px;
+      margin: 0;
+      font-size: clamp(34px, 5vw, 68px);
+      font-weight: 750;
+      letter-spacing: -0.055em;
+      line-height: 0.98;
+      text-wrap: balance;
+    }
+
+    .accent {
+      color: var(--accent);
+    }
+
+    .description {
+      max-width: 440px;
+      margin: 20px 0 30px;
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.55;
+    }
+
+    .stores {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .store-link {
+      display: inline-flex;
+      min-width: 184px;
+      min-height: 62px;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 19px;
+      border: 1px solid #344242;
+      border-radius: 12px;
+      background: #fff;
+      color: #050808;
+      text-decoration: none;
+      transition: border-color 160ms ease, transform 160ms ease;
+    }
+
+    .store-link:not([aria-disabled="true"]):hover,
+    .store-link:not([aria-disabled="true"]):focus-visible {
+      border-color: var(--accent);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    .store-link[aria-disabled="true"] {
+      background: #101616;
+      color: #879292;
+      cursor: not-allowed;
+    }
+
+    .instagram-cta {
+      min-width: 160px;
+      gap: 11px;
+      border-color: rgba(1, 222, 224, 0.48);
+      background: rgba(1, 222, 224, 0.07);
+      color: #fff;
+    }
+
+    .instagram-cta:hover,
+    .instagram-cta:focus-visible {
+      background: rgba(1, 222, 224, 0.13);
+    }
+
+    .instagram-mark {
+      position: relative;
+      width: 23px;
+      height: 23px;
+      flex: 0 0 23px;
+      border: 2px solid currentColor;
+      border-radius: 7px;
+    }
+
+    .instagram-mark::before {
+      content: "";
+      position: absolute;
       top: 50%;
       left: 50%;
+      width: 7px;
+      height: 7px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
       transform: translate(-50%, -50%);
-      animation: crossMove 11s ease-in-out infinite alternate;
-      filter: drop-shadow(0 0 30px rgba(0, 255, 230, 0.38));
-      user-select: none;
-      pointer-events: none;
     }
 
-    .instagram-link {
-      position: fixed;
-      left: 50%;
-      bottom: 132px;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.62);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      white-space: nowrap;
-      text-decoration: none;
-      z-index: 10;
-      transition: 0.2s ease;
+    .instagram-mark::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: currentColor;
     }
 
-    .instagram-link span {
-      color: #00ffe6;
+    .instagram-handle {
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .store-copy {
+      display: grid;
+      gap: 2px;
+      text-align: left;
+    }
+
+    .store-copy small {
+      font-size: 9px;
       font-weight: 700;
-    }
-
-    .instagram-link:hover {
-      color: #ffffff;
-      text-shadow: 0 0 12px rgba(0, 255, 230, 0.55);
-    }
-
-    .coming {
-      position: fixed;
-      left: 50%;
-      bottom: 98px;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.58);
-      font-size: 13px;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
-      white-space: nowrap;
     }
 
-    .sound-button {
-      position: fixed;
-      left: 50%;
-      bottom: 42px;
-      transform: translateX(-50%);
-      border: 1px solid rgba(0, 255, 230, 0.58);
-      background: rgba(0, 255, 230, 0.08);
-      color: #dffffb;
-      padding: 14px 23px;
-      border-radius: 999px;
-      font-size: 14px;
-      letter-spacing: 0.08em;
+    .store-copy strong {
+      font-size: 20px;
+      letter-spacing: -0.025em;
+      line-height: 1;
+    }
+
+    .store-note {
+      width: 100%;
+      margin: 0;
+      color: #677474;
+      font-size: 12px;
+    }
+
+    .preview {
+      display: grid;
+      justify-items: center;
+    }
+
+    .phone-wrap {
+      position: relative;
+      width: min(78vw, 338px);
+    }
+
+    .phone {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 921 / 2048;
+      border: 8px solid #111818;
+      border-radius: 38px;
+      background: #050909;
+      box-shadow:
+        0 34px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(1, 222, 224, 0.22);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 350ms ease;
+    }
+
+    .slide.is-active {
+      opacity: 1;
+    }
+
+    .slider-button {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(3, 8, 8, 0.88);
+      color: #fff;
       cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: 0.2s ease;
+      font: inherit;
+      transform: translateY(-50%);
     }
 
-    .sound-button:hover {
-      background: rgba(0, 255, 230, 0.18);
-      box-shadow: 0 0 20px rgba(0, 255, 230, 0.15);
+    .slider-button::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
     }
 
-    @keyframes crossMove {
-      0% {
-        transform: translate(-72%, -68%) scale(0.95) rotate(-1deg);
-      }
+    .slider-button.previous::before {
+      transform: rotate(135deg);
+    }
 
-      33% {
-        transform: translate(-30%, -32%) scale(1.05) rotate(1deg);
-      }
+    .slider-button.next::before {
+      transform: rotate(-45deg);
+    }
 
-      66% {
-        transform: translate(-67%, -32%) scale(1) rotate(-0.5deg);
-      }
+    .slider-button:hover,
+    .slider-button:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      outline: none;
+    }
 
-      100% {
-        transform: translate(-28%, -68%) scale(1.04) rotate(0.5deg);
+    .slider-button.previous {
+      left: -56px;
+    }
+
+    .slider-button.next {
+      right: -56px;
+    }
+
+    .slider-status {
+      display: grid;
+      width: min(100%, 250px);
+      grid-template-columns: auto minmax(90px, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      color: #fff;
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .slide-track {
+      position: relative;
+      overflow: hidden;
+      height: 1px;
+      background: #263333;
+    }
+
+    .slide-progress {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 20%;
+      background: var(--accent);
+      transition: width 350ms ease;
+    }
+
+    .slide-total {
+      color: #657272;
+    }
+
+    .features {
+      width: min(100%, 1080px);
+      margin: 0 auto;
+      padding: clamp(58px, 8vw, 92px) 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .features h2 {
+      margin: 0 0 28px;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .feature-list {
+      display: grid;
+      margin: 0;
+      padding: 0;
+      column-gap: clamp(32px, 7vw, 86px);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      list-style: none;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.35;
+    }
+
+    .feature-number {
+      min-width: 24px;
+      color: var(--accent);
+      font-size: 10px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .feature-text {
+      color: var(--text);
+    }
+
+    .footer {
+      display: flex;
+      width: min(100%, 1080px);
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 0 auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: #697777;
+      font-size: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .footer a {
+      text-decoration: none;
+    }
+
+    .footer a:hover,
+    .footer a:focus-visible {
+      color: var(--accent);
+      outline: none;
+    }
+
+    @media (min-width: 820px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr) minmax(290px, 0.7fr);
       }
     }
 
-    @keyframes bgPulse {
-      from {
-        opacity: 0.65;
-        transform: scale(1);
+    @media (max-width: 819px) {
+      .hero {
+        justify-items: center;
+        padding-top: 22px;
+        text-align: center;
       }
 
-      to {
-        opacity: 1;
-        transform: scale(1.06);
+      .intro {
+        display: grid;
+        justify-items: center;
+      }
+
+      .stores {
+        justify-content: center;
+      }
+
+      .phone-wrap {
+        width: min(72vw, 318px);
+      }
+
+      .features h2 {
+        text-align: center;
       }
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 480px) {
+      .page {
+        padding-right: max(16px, env(safe-area-inset-right));
+        padding-left: max(16px, env(safe-area-inset-left));
+      }
+
+      .hero {
+        gap: 42px;
+      }
+
       .logo {
-        width: 72vw;
+        width: min(76vw, 280px);
       }
 
-      .watermark {
-        font-size: 23vw;
+      .store-link {
+        width: 100%;
       }
 
-      .instagram-link {
-        bottom: 122px;
-        font-size: 11px;
+      .slider-button {
+        top: auto;
+        bottom: -7px;
+        width: 38px;
+        height: 38px;
+        transform: none;
       }
 
-      .coming {
-        bottom: 88px;
-        font-size: 11px;
+      .slider-button.previous {
+        left: -3px;
       }
 
-      .sound-button {
-        bottom: 32px;
-        font-size: 12px;
-        padding: 12px 18px;
+      .slider-button.next {
+        right: -3px;
+      }
+
+      .footer {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .slide,
+      .slide-progress,
+      .language-knob,
+      .store-link {
+        transition: none;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="cross"></div>
-  <div class="scanline"></div>
+  <div class="page">
+    <header class="topbar">
+      <button class="language-toggle" id="languageToggle" type="button" aria-pressed="false" aria-label="Switch website language to Czech">
+        <span class="language-en">EN</span>
+        <span class="language-switch" aria-hidden="true"><span class="language-knob"></span></span>
+        <span class="language-cz">CZ</span>
+      </button>
+    </header>
 
-  <img
-    class="logo"
-    src="logo.png"
-    alt="67ride automotive social app logo"
-  />
+    <main class="hero">
+      <section class="intro" aria-labelledby="headline">
+        <img class="logo" src="/assets/67ride-logo.png" alt="67ride">
+        <h1 id="headline"><span data-i18n="headlineStart">United by</span> <span class="accent" data-i18n="headlineAccent">car culture.</span></h1>
+        <p class="description" data-i18n="description">Car people, events and rides in one app.</p>
 
-  <a
-    class="instagram-link"
-    href="https://www.instagram.com/67rideapp/"
-    target="_blank"
-    rel="me noopener noreferrer"
-    aria-label="Official Instagram profile of 67ride"
-  >
-    Official Instagram: <span>@67rideapp</span>
-  </a>
+        <div class="stores" aria-label="Download 67ride">
+          <span class="store-link" role="link" aria-disabled="true">
+            <span class="store-copy">
+              <small data-i18n="googleLead">Get it on</small>
+              <strong>Google Play</strong>
+            </span>
+          </span>
 
-  <div class="coming">Coming soon</div>
+          <span class="store-link" role="link" aria-disabled="true">
+            <span class="store-copy">
+              <small data-i18n="appleLead">Download on the</small>
+              <strong>App Store</strong>
+            </span>
+          </span>
 
-  <button
-    class="sound-button"
-    id="soundButton"
-    type="button"
-  >
-    PLAY BANGER
-  </button>
+          <a
+            class="store-link instagram-cta"
+            id="instagramCta"
+            href="https://www.instagram.com/67rideapp/"
+            target="_blank"
+            rel="me noopener noreferrer"
+            aria-label="Follow 67ride on Instagram"
+          >
+            <span class="instagram-mark" aria-hidden="true"></span>
+            <strong class="instagram-handle">@67rideapp</strong>
+          </a>
 
-  <audio
-    id="bgAudio"
-    src="ambient.mp3"
-    loop
-    preload="auto"
-  ></audio>
+          <p class="store-note" data-i18n="storeNote">Store links will be activated before publishing.</p>
+        </div>
+      </section>
+
+      <section class="preview" aria-label="67ride app preview">
+        <div class="phone-wrap" id="slideshow">
+          <div class="phone" aria-live="polite">
+            <img class="slide is-active" src="/assets/app-preview/welcome.jpg" alt="67ride welcome screen" width="921" height="2048">
+            <img class="slide" src="/assets/app-preview/ride.jpg" alt="67ride rides and events overview" width="921" height="2048" loading="lazy">
+            <img class="slide" src="/assets/app-preview/club.jpg" alt="67ride car club profile" width="921" height="2048" loading="lazy">
+            <img class="slide" src="/assets/app-preview/event.jpg" alt="67ride event details" width="921" height="2048" loading="lazy">
+            <img class="slide" src="/assets/app-preview/profile.jpg" alt="67ride member and car profile" width="921" height="2048" loading="lazy">
+          </div>
+
+          <button class="slider-button previous" type="button" aria-label="Previous screenshot"></button>
+          <button class="slider-button next" type="button" aria-label="Next screenshot"></button>
+        </div>
+
+        <div class="slider-status" id="sliderStatus" aria-live="polite" aria-label="Screenshot 1 of 5">
+          <span id="currentSlide">01</span>
+          <span class="slide-track" aria-hidden="true"><span class="slide-progress" id="slideProgress"></span></span>
+          <span class="slide-total" id="totalSlides">05</span>
+        </div>
+      </section>
+    </main>
+
+    <section class="features" aria-labelledby="features-title">
+      <h2 id="features-title" data-i18n="featuresTitle">What you can do in 67ride</h2>
+      <ul class="feature-list">
+        <li><span class="feature-number">01</span><span class="feature-text" data-i18n="featureProfile">Build your profile and fame</span></li>
+        <li><span class="feature-number">02</span><span class="feature-text" data-i18n="featureShare">Share cars, photos and updates</span></li>
+        <li><span class="feature-number">03</span><span class="feature-text" data-i18n="featureNearby">Find drivers around you</span></li>
+        <li><span class="feature-number">04</span><span class="feature-text" data-i18n="featureEvents">Discover events and missions</span></li>
+        <li><span class="feature-number">05</span><span class="feature-text" data-i18n="featureClubs">Create and join car clubs</span></li>
+        <li><span class="feature-number">06</span><span class="feature-text" data-i18n="featureMap">Use the live map and Ride Party</span></li>
+        <li><span class="feature-number">07</span><span class="feature-text" data-i18n="featureChat">Chat and Club chat</span></li>
+        <li><span class="feature-number">08</span><span class="feature-text" data-i18n="featureMissions">Complete missions and earn rewards</span></li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <span>© 67ride</span>
+      <nav class="footer-links" aria-label="Legal and support">
+        <a href="/privacy/" data-i18n="privacy">Privacy</a>
+        <a href="/terms/" data-i18n="terms">Terms</a>
+        <a href="/support/" data-i18n="support">Support</a>
+        <a href="https://www.instagram.com/67rideapp/" target="_blank" rel="me noopener noreferrer">Instagram</a>
+      </nav>
+    </footer>
+  </div>
 
   <script>
-    const audio = document.getElementById("bgAudio");
-    const button = document.getElementById("soundButton");
+    const slides = [...document.querySelectorAll(".slide")];
+    const previousButton = document.querySelector(".previous");
+    const nextButton = document.querySelector(".next");
+    const slideshow = document.getElementById("slideshow");
+    const languageToggle = document.getElementById("languageToggle");
+    const sliderStatus = document.getElementById("sliderStatus");
+    const currentSlideLabel = document.getElementById("currentSlide");
+    const totalSlidesLabel = document.getElementById("totalSlides");
+    const slideProgress = document.getElementById("slideProgress");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    audio.volume = 0.16;
+    const COPY = {
+      en: {
+        title: "67ride — United by car culture",
+        metaDescription: "67ride brings car people, events and rides together.",
+        headlineStart: "United by",
+        headlineAccent: "car culture.",
+        description: "Car people, events and rides in one app.",
+        googleLead: "Get it on",
+        appleLead: "Download on the",
+        storeNote: "Store links will be activated before publishing.",
+        featuresTitle: "What you can do in 67ride",
+        featureProfile: "Build your profile and fame",
+        featureShare: "Share cars, photos and updates",
+        featureNearby: "Find drivers around you",
+        featureEvents: "Discover events and missions",
+        featureClubs: "Create and join car clubs",
+        featureMap: "Use the live map and Ride Party",
+        featureChat: "Chat and Club chat",
+        featureMissions: "Complete missions and earn rewards",
+        privacy: "Privacy",
+        terms: "Terms",
+        support: "Support",
+        storesLabel: "Download 67ride",
+        previewLabel: "67ride app preview",
+        footerLabel: "Legal and support",
+        previousLabel: "Previous screenshot",
+        nextLabel: "Next screenshot",
+        switchLabel: "Switch website language to Czech",
+        instagramLabel: "Follow 67ride on Instagram",
+        screenshotLabel: "Screenshot",
+        ofLabel: "of",
+        slideAlts: [
+          "67ride welcome screen",
+          "67ride rides and events overview",
+          "67ride car club profile",
+          "67ride event details",
+          "67ride member and car profile"
+        ]
+      },
+      cs: {
+        title: "67ride — United by car culture",
+        metaDescription: "67ride spojuje lidi, auta, eventy a společné jízdy.",
+        headlineStart: "United by",
+        headlineAccent: "car culture.",
+        description: "Lidi, auta, eventy a jízdy v jedné appce.",
+        googleLead: "Stáhnout z",
+        appleLead: "Stáhnout z",
+        storeNote: "Odkazy na obchody aktivujeme před zveřejněním.",
+        featuresTitle: "Co můžeš dělat v 67ride",
+        featureProfile: "Buduj svůj profil a fame",
+        featureShare: "Sdílej auta, fotky a novinky",
+        featureNearby: "Najdi řidiče kolem sebe",
+        featureEvents: "Objevuj eventy a mise",
+        featureClubs: "Zakládej autokluby a přidávej se k nim",
+        featureMap: "Používej live mapu a Ride Party",
+        featureChat: "Chat a klubový chat",
+        featureMissions: "Plň mise a získávej odměny",
+        privacy: "Soukromí",
+        terms: "Podmínky",
+        support: "Podpora",
+        storesLabel: "Stáhnout 67ride",
+        previewLabel: "Ukázka aplikace 67ride",
+        footerLabel: "Právní informace a podpora",
+        previousLabel: "Předchozí screenshot",
+        nextLabel: "Další screenshot",
+        switchLabel: "Přepnout web do angličtiny",
+        instagramLabel: "Sledovat 67ride na Instagramu",
+        screenshotLabel: "Screenshot",
+        ofLabel: "z",
+        slideAlts: [
+          "Úvodní obrazovka 67ride",
+          "Přehled jízd a eventů v 67ride",
+          "Profil autoklubu v 67ride",
+          "Detail eventu v 67ride",
+          "Profil člena a auta v 67ride"
+        ]
+      }
+    };
 
-    button.addEventListener("click", async () => {
+    let currentLanguage = "en";
+    let currentSlide = 0;
+    let autoplayId = null;
+    let pointerStart = null;
+
+    function showSlide(index) {
+      currentSlide = (index + slides.length) % slides.length;
+
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("is-active", slideIndex === currentSlide);
+      });
+
+      const visibleNumber = currentSlide + 1;
+      currentSlideLabel.textContent = String(visibleNumber).padStart(2, "0");
+      totalSlidesLabel.textContent = String(slides.length).padStart(2, "0");
+      slideProgress.style.width = `${(visibleNumber / slides.length) * 100}%`;
+      const copy = COPY[currentLanguage];
+      sliderStatus.setAttribute("aria-label", `${copy.screenshotLabel} ${visibleNumber} ${copy.ofLabel} ${slides.length}`);
+    }
+
+    function applyLanguage(language) {
+      currentLanguage = COPY[language] ? language : "en";
+      const copy = COPY[currentLanguage];
+
+      document.documentElement.lang = currentLanguage;
+      document.title = copy.title;
+      document.querySelector('meta[name="description"]').setAttribute("content", copy.metaDescription);
+      document.querySelector('meta[property="og:title"]').setAttribute("content", copy.title);
+      document.querySelector('meta[property="og:description"]').setAttribute("content", copy.metaDescription);
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        element.textContent = copy[element.dataset.i18n];
+      });
+
+      document.querySelector(".stores").setAttribute("aria-label", copy.storesLabel);
+      document.querySelector(".preview").setAttribute("aria-label", copy.previewLabel);
+      document.querySelector(".footer-links").setAttribute("aria-label", copy.footerLabel);
+      previousButton.setAttribute("aria-label", copy.previousLabel);
+      nextButton.setAttribute("aria-label", copy.nextLabel);
+      languageToggle.setAttribute("aria-label", copy.switchLabel);
+      document.getElementById("instagramCta").setAttribute("aria-label", copy.instagramLabel);
+      languageToggle.setAttribute("aria-pressed", String(currentLanguage === "cs"));
+      languageToggle.classList.toggle("is-czech", currentLanguage === "cs");
+      slides.forEach((slide, index) => {
+        slide.alt = copy.slideAlts[index];
+      });
+
       try {
-        if (audio.paused) {
-          await audio.play();
-          button.textContent = "BANGER ON";
-        } else {
-          audio.pause();
-          button.textContent = "PLAY BANGER";
-        }
+        localStorage.setItem("67ride_language", currentLanguage);
       } catch (error) {
-        button.textContent = "CLICK AGAIN";
+        // Language switching still works when local storage is unavailable.
+      }
+
+      showSlide(currentSlide);
+    }
+
+    function stopAutoplay() {
+      if (autoplayId !== null) {
+        window.clearInterval(autoplayId);
+        autoplayId = null;
+      }
+    }
+
+    function startAutoplay() {
+      if (!reduceMotion && autoplayId === null) {
+        autoplayId = window.setInterval(() => showSlide(currentSlide + 1), 4500);
+      }
+    }
+
+    previousButton.addEventListener("click", () => showSlide(currentSlide - 1));
+    nextButton.addEventListener("click", () => showSlide(currentSlide + 1));
+    languageToggle.addEventListener("click", () => {
+      applyLanguage(currentLanguage === "en" ? "cs" : "en");
+    });
+
+    slideshow.addEventListener("mouseenter", stopAutoplay);
+    slideshow.addEventListener("mouseleave", startAutoplay);
+    slideshow.addEventListener("focusin", stopAutoplay);
+    slideshow.addEventListener("focusout", startAutoplay);
+
+    slideshow.addEventListener("pointerdown", (event) => {
+      pointerStart = event.clientX;
+    });
+
+    slideshow.addEventListener("pointerup", (event) => {
+      if (pointerStart === null) return;
+
+      const distance = event.clientX - pointerStart;
+      pointerStart = null;
+
+      if (Math.abs(distance) > 45) {
+        showSlide(currentSlide + (distance < 0 ? 1 : -1));
       }
     });
+
+    let savedLanguage = "en";
+
+    try {
+      savedLanguage = localStorage.getItem("67ride_language") || "en";
+    } catch (error) {
+      savedLanguage = "en";
+    }
+
+    applyLanguage(savedLanguage);
+    startAutoplay();
   </script>
 </body>
 </html>
