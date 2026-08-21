@@ -209,8 +209,9 @@
         url: ""
       },
       android: {
-        live: false,
-        url: "https://play.google.com/store/apps/details?id=com.wgtlabs.ride67"
+        live: true,
+        url: "/download/android/",
+        status: "APPROVAL IN PROGRESS"
       }
     };
 
@@ -312,7 +313,7 @@
 
       card.disabled = false;
       card.classList.add("is-live");
-      card.querySelector(".status").textContent = "OPEN STORE";
+      card.querySelector(".status").textContent = config.status || "OPEN STORE";
       card.addEventListener("click", () => {
         void sendQrEvent("store_click");
         window.location.assign(config.url);
