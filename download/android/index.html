@@ -290,9 +290,9 @@
 
   <script>
     const APK_CONFIG = {
-      live: false,
-      url: "",
-      version: ""
+      live: true,
+      url: "https://github.com/67ride/67ride-site/releases/download/android-v1.0.1-284/67ride-1.0.1-284-android.apk",
+      version: "1.0.1 (284) • 174 MB"
     };
 
     const COPY = {
@@ -350,9 +350,11 @@
     });
 
     const apkDownload = document.getElementById("apkDownload");
-    const isSafeApkPath = /^\/downloads\/[a-z0-9._-]+\.apk$/i.test(APK_CONFIG.url);
+    const allowedApkUrl =
+      "https://github.com/67ride/67ride-site/releases/download/android-v1.0.1-284/67ride-1.0.1-284-android.apk";
+    const isSafeApkUrl = APK_CONFIG.url === allowedApkUrl;
 
-    if (APK_CONFIG.live && isSafeApkPath) {
+    if (APK_CONFIG.live && isSafeApkUrl) {
       apkDownload.href = APK_CONFIG.url;
       apkDownload.download = "";
       apkDownload.removeAttribute("aria-disabled");
